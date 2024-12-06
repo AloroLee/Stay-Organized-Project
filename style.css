@@ -2,13 +2,34 @@
     border-radius: 50%;
 }
 body{
-    background-color: green;
+    background-color: gray;
 }
-#todo-form {
+form {
     max-width: 400px;
     margin: 0 auto;
     background: #fff;
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 4px;
+}
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: black;
+}
+button {
+    display: block;
+    margin: 0 auto; 
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 4px;
+}
+button:hover {
+    background-color: #0056b3;
 }

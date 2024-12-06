@@ -25,11 +25,11 @@
         <textarea id="description" name="description" required></textarea><br>
 
         <label for="deadline">Deadline:</label>
-        <input type="text" id="deadline" name="deadline" placeholder="YYYY-MM-DD" required><br>
+        <input type="date" id="deadline" name="deadline" required><br>
 
         <button type="submit">Add ToDo</button>
     </form>
-
+    
     <script>
         async function fetchUsers() {
             try {
@@ -62,37 +62,6 @@
                 console.error('Error fetching categories:', error);
             }
         }
-
-        document.getElementById('todo-form').addEventListener('submit', async (event) => {
-            event.preventDefault();
-
-            const userId = document.getElementById('user').value;
-            const category = document.getElementById('category').value;
-            const priority = document.getElementById('priority').value;
-            const description = document.getElementById('description').value;
-            const deadline = document.getElementById('deadline').value;
-
-            const newTodo = { 
-                userId, 
-                category, 
-                description, 
-                deadline, 
-                priority 
-            };
-
-            try {
-                const response = await fetch('http://localhost:8083/api/todos', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(newTodo)
-                });
-
-                const result = await response.json();
-                alert(result.message); 
-            } catch (error) {
-                console.error('Error adding ToDo:', error);
-            }
-        });
 
         fetchUsers();
         fetchCategories();

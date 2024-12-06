@@ -1,19 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To Do</title>
+    <title>TODO</title>
 </head>
-<body>
-    <h1>To Do</h1>
-    <select name="list" id="list"></select>
-    <div id="courseTarget">?</div><br>
-    <button id="saveBtn">Save</button>
-    <button id="deleteBtn">Delete</button>
-    <button id="newBtn">Clear Form</button>
-</body>
-<script>
 
-</script>
+<body>
+    <main>
+        <h1>To Do</h1>
+        <div id="newToDo">
+            <input type="text" id="newToDoInput">
+            <button id="newToDoSaveButton">Save</button>
+        </div>
+        <div id="filters"></div>
+        <div id="results"></div>
+    </main>
+    <script>
+        let baseURL = "http://localhost:8083/api/";
+
+        async function deleteToDo(id) {
+            await fetch(baseURL + "todos/" + id, { method: "DELETE", });
+            window.location.href = "index.html"; //refresh page
+        }
+
+        function renderToDo(t) {
+            const e = document.createElement("div");
+            e.innerText = t.description;
+            const del = document.createElement("button");
+            del.innerText = "X";
+            del.addEventListener("click", () => deleteToDo(t.id));
+            e.appendChild(del);
+            results.appendChild(e);
+        }
+
+        async function saveToDo() {
+            let text = newToDoInput.value;
+            let newObject = {
+                "userid": 1,
+                "category": "Personal Task",
+                "description": text,
+                "deadline": "2022-12-15",
+                "priority": "Medium",
+                "completed": false
+            }
+            let response = await fetch(baseURL + "todos", {
+                method: "POST", //CREATE
+                body: JSON.stringify(newObject),
+                headers: {
+                    "Content-type": "application/json"
+                }
+            });
+            window.location.href = "index.html"; //refresh page
+        }
+
+
+        document.addEventListener("DOMContentLoaded", async () => {
+
+            newToDoSaveButton.addEventListener("click", saveToDo);
+
+            let example = {
+                "id": 1,
+                "userid": 5,
+                "category": "Personal Task",
+                "description": "Finish studying for ENG 211 exam",
+                "deadline": "2022-12-15",
+                "priority": "Medium",
+                "completed": false
+            };
+            let todoListResponse = await fetch(baseURL + "todos");
+            let todoList = await todoListResponse.json();
+            todoList.forEach(renderToDo);
+        });// end load
+    </script>
+</body>
+
 </html>

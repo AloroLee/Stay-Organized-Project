@@ -1,9 +1,37 @@
-#saveBtn{
-    border-radius: 50%;
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #75373728;
 }
-body{
-    background-color: gray;
+
+header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 20px;
+    text-align: center;
 }
+
+nav {
+    display: flex;
+    justify-content: center;
+    background-color: #333;
+    padding: 10px 0;
+    margin-bottom: 5%;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
 form {
     max-width: 400px;
     margin: 0 auto;
@@ -32,4 +60,44 @@ button {
 }
 button:hover {
     background-color: #0056b3;
+}
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f4;
+}
+h1 {
+    text-align: center;
+}
+label {
+    font-weight: bold;
+}
+select, table {
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+table {
+    border-collapse: collapse;
+    background-color: #fff;
+}
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+th {
+    background-color: #3a4e3a;
+    color: white;
+}
+.completed-true img, .completed-false img {
+    width: 20px;
+    height: 20px;
+}
+.completed-true img {
+    content: url('checkmark.png');
+}
+.completed-false img {
+    content: url('xmark.png');
 }

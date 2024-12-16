@@ -8,6 +8,11 @@
 </head>
 <body>
     <h1>Add a New ToDo Task</h1>
+    <nav>
+        <a href="./index.html">Home</a>
+        <a href="./new_todo.html">Add ToDo</a>
+        <a href="./todo.html">ToDo</a>
+    </nav>
     <form id="todo-form">
         <label for="user">User:</label>
         <select id="user" name="user" required></select><br>
@@ -77,7 +82,7 @@
                 priority: document.getElementById("priority").value,
             };
             console.log(addtodo)
-            
+
             const textJSON = JSON.stringify(addtodo);
             console.log(textJSON)
 

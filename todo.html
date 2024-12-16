@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View ToDo Tasks</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>View ToDo Tasks</h1>
+    <nav>
+        <a href="./index.html">Home</a>
+        <a href="./new_todo.html">Add ToDo</a>
+        <a href="./todo.html">ToDo</a>
+    </nav>
+    <label for="user-select">Select a User:</label>
+    <select id="user-select" required>
+        <option value="" disabled selected>Select a user</option>
+    </select>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Category</th>
+                <th>Description</th>
+                <th>Deadline</th>
+                <th>Priority</th>
+            </tr>
+        </thead>
+        <tbody id="todo-table-body">
+        </tbody>
+    </table>
+
+    <script>
+        async function fetchUsers() {
+            try {
+                const response = await fetch('http://localhost:8083/api/users');
+                const users = await response.json();
+                const userSelect = document.getElementById('user-select');
+                users.forEach(user => {
+                    const option = document.createElement('option');
+                    option.value = user.id; 
+                    option.textContent = user.name; 
+                    userSelect.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Error fetching users:', error);
+            }
+        }
+
+        async function fetchTodos(userId) {
+            try {
+                const response = await fetch(`http://localhost:8083/api/todos/byuser/${userId}`);
+                const todos = await response.json();
+                const tableBody = document.getElementById('todo-table-body');
+                tableBody.innerHTML = '';
+
+                todos.forEach(todo => {
+                    const row = document.createElement('tr');
+
+                    row.innerHTML = `
+                        <td>${todo.category}</td>
+                        <td>${todo.description}</td>
+                        <td>${todo.deadline}</td>
+                        <td>${todo.priority}</td>
+                    `;
+
+                    tableBody.appendChild(row);
+                });
+            } catch (error) {
+                console.error('Error fetching todos:', error);
+            }
+        }
+
+        document.getElementById('user-select').addEventListener('change', (event) => {
+            const userId = event.target.value;
+            if (userId) {
+                fetchTodos(userId);
+            }
+        });
+
+        fetchUsers();
+    </script>
+</body>
+</html>
